@@ -139,16 +139,34 @@ a_gyr_mean_std = np.std(a_gyr_mean)
 a_sulc_mean_std = np.std(a_sulc_mean)
 a_saddle_mean_std = np.std(a_saddle_mean)
 
+# # barplot
+# data = [[ICI_gyr_norm_mean, FI_gyr_norm_mean, a_gyr_mean_mean/10000],
+# [ICI_sulc_norm_mean, FI_sulc_norm_mean, a_sulc_mean_mean/10000],
+# [abs(ICI_saddle_norm_mean), FI_saddle_norm_mean, a_saddle_mean_mean/10000]]
+
+# error = [[ICI_gyr_norm_std, FI_gyr_norm_std, a_gyr_mean_std/10000],
+# [ICI_sulc_norm_std, FI_sulc_norm_std, a_sulc_mean_std/10000],
+# [abs(ICI_saddle_norm_std), FI_saddle_norm_std, a_saddle_mean_std/10000]]
+
+# X = np.arange(3)
+# fig = plt.figure()
+# ax = fig.add_axes([0,0,1,1])
+# ax.bar(X + 0.00, data[0], color = 'grey', width = 0.25, yerr = error[0])
+# ax.bar(X + 0.25, data[1], color = 'darkgrey', width = 0.25, yerr = error[1])
+# ax.bar(X + 0.50, data[2], color = 'lightgrey', width = 0.25, yerr = error[2])
+# ax.legend(labels=['ICI_norm', 'FI_norm', 'Area'])
+# fig.show()
+
 # barplot
-data = [[ICI_gyr_norm_mean, FI_gyr_norm_mean, a_gyr_mean_mean/10000],
-[ICI_sulc_norm_mean, FI_sulc_norm_mean, a_sulc_mean_mean/10000],
-[abs(ICI_saddle_norm_mean), FI_saddle_norm_mean, a_saddle_mean_mean/10000]]
+data = [[ICI_gyr_norm_mean, FI_gyr_norm_mean],
+[ICI_sulc_norm_mean, FI_sulc_norm_mean],
+[abs(ICI_saddle_norm_mean), FI_saddle_norm_mean]]
 
-error = [[ICI_gyr_norm_std, FI_gyr_norm_std, a_gyr_mean_std/10000],
-[ICI_sulc_norm_std, FI_sulc_norm_std, a_sulc_mean_std/10000],
-[abs(ICI_saddle_norm_std), FI_saddle_norm_std, a_saddle_mean_std/10000]]
+error = [[ICI_gyr_norm_std, FI_gyr_norm_std],
+[ICI_sulc_norm_std, FI_sulc_norm_std],
+[abs(ICI_saddle_norm_std), FI_saddle_norm_std]]
 
-X = np.arange(3)
+X = np.arange(2)
 fig = plt.figure()
 ax = fig.add_axes([0,0,1,1])
 ax.bar(X + 0.00, data[0], color = 'grey', width = 0.25, yerr = error[0])
