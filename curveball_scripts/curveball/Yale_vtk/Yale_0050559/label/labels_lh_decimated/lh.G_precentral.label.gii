@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE GIFTI SYSTEM "http://gifti.projects.nitrc.org/gifti.dtd">
+<GIFTI Version="1.0"  NumberOfDataArrays="1">
+   <MetaData>
+      <MD>
+         <Name><![CDATA[UserName]]></Name>
+         <Value><![CDATA[nagehan]]></Value>
+      </MD>
+      <MD>
+         <Name><![CDATA[Date]]></Name>
+         <Value><![CDATA[Mon May 10 10:12:23 2021]]></Value>
+      </MD>
+      <MD>
+         <Name><![CDATA[gifticlib-version]]></Name>
+         <Value><![CDATA[gifti library version 1.09, 28 June, 2010]]></Value>
+      </MD>
+   </MetaData>
+   <LabelTable>
+      <Label Key="0" Red="0" Green="0" Blue="0" Alpha="0"><![CDATA[unknown]]></Label>
+      <Label Key="1" Red="0.8" Green="0.08" Blue="0.08" Alpha="1"><![CDATA[G_precentral]]></Label>
+   </LabelTable>
+   <DataArray Intent="NIFTI_INTENT_LABEL"
+              DataType="NIFTI_TYPE_INT32"
+              ArrayIndexingOrder="RowMajorOrder"
+              Dimensionality="1"
+              Dim0="36988"
+              Encoding="GZipBase64Binary"
+              Endian="LittleEndian"
+              ExternalFileName=""
+              ExternalFileOffset="">
+      <MetaData>
+         <MD>
+            <Name><![CDATA[Name]]></Name>
+            <Value><![CDATA[G_precentral]]></Value>
+         </MD>
+      </MetaData>
+      <Data>eJzt29uumzAQBVDy/z9dnTdq2XMhhJBkLSmqANvQB3bHNt02AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+G6Pdz8A8DUew5+VtgCf7rH7Ref21wAiq5xYZYtcAfZWOVGdp8kYYGU1v4lqF4CrPVPLyC34TVfPgWQNfI79fKezthIdA9+tmhUAHdG+T3c/6Op1ktm3hJVnPPvbQ9kMv2n2Pd+21edtWXZk3weu7r+6T/QNYjRG57tt4J4ek9/+2rbNsyv7je2ze62ebew3Xps9U5XsgvfI/u9Dliura5XaqFM/jdcr58bzURt1FNxTJY9m2XOkPormYGeuswGv1cmBV2ZMVF9E87TVMXA/R/Kg23dsW32mM8kjOFdlXSWbi3Rqjs5x9MzAPXTnJ/t+s3FmWfPsO9+pR+QLfI6ofpm1mR2PfaN2q36d89n40Vxr1l9mARXVtaGo/2q87J6dMbuyWvOZjJSv8B5ZRl0xNzxaB3Zrw+y+Z+QkcJ5uXVNZS5+Nc6RWA97Lv9nwv+q6pXeFT3fmOlQ0NtBXnW9Vv3GYjRGNvy3aebfhPNm+e/ZeV/e9KuNUawIZAIwq8+ZV7ZK169ZD2T23RfvK3wP4bZ2MOHMOla3V2IcD7uSsPOrMR6N5daWmBLhKJ3eqc92oX3VfoPJ9V7Zn0G0HfLdn6rOxzWofNLtfZY0RuI9qzVLtF2VBdX9AbsBvOLrHWL1WuZ7Noyr1TTU3gc8VZcN4vZJbMgL4U1l3qfSv1iFXZ5Csg+OiNd7Vuf212Zwl65u9s5Uxxvtn69OVNSngetX96O540dpwNm60hiM74DtU5ytnv++d2qXaN9sz2yZ9tskxwJ9sjje27Y59VrtOTSbvgIqoxpq1ieq51djyCPg01UzzjQLwavb44Hd53wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4N4eB37A7/gHdEcCxw==</Data>
+   </DataArray>
+</GIFTI>
