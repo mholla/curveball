@@ -46,7 +46,8 @@ for line in lines:
 plt.figure()
 ax = sns.kdeplot(K_all, color='#3E4A89', shade=True, bw_adjust=2)
 ax.set(xlim=(-0.1, 0.1))
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/g_curv.png'
+plt.savefig(fname, dpi = 500)
 
 #Statistics
 var = np.var(K_all)

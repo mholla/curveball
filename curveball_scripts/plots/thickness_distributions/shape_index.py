@@ -129,7 +129,6 @@ sns.kdeplot(sridge_t, color='#26828E', shade=False, label='Saddle_ridge',bw_adju
 sns.kdeplot(ridge_t, color='#31688E', shade=False, label='Ridge',bw_adjust=3,cut=0)
 sns.kdeplot(dome_t, color='#3E4A89', shade=False, label='Dome',bw_adjust=3,cut=0)
 sns.kdeplot(cap_t, color='#482878', shade=False, label='Cap',bw_adjust=3,cut=0)
-
 plt.show()
     
 # Calculate Cohen's d, size of samples(n)

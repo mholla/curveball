@@ -37,7 +37,6 @@ for line in lines:
         subjects_name = 'Yale_vtk'
         subjects_dir = os.path.join(os.getcwd(),subjects_name)
         subject = '{l}'.format(l=line)
-        # subject = 'Yale_0050551'
     
         S = '{h}.sulc.shrink_18.asc'.format(h=hemi)
         t = '{h}.thickness.asc'.format(h=hemi)
@@ -229,9 +228,9 @@ def heatmap_circle(t_ave_map, ind_ave_map, s, l):
     ax.set(xticks=np.arange(M-1)-0.5, yticks=np.arange(N+1)-0.5, xticklabels=xlabels, yticklabels=ylabels)
     ax.tick_params(axis='x', labelrotation = 45)
     plt.gca().invert_yaxis()
-    
     fig.colorbar(col)
-    plt.show()
+    fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/si_s.png'
+    plt.savefig(fname, dpi = 500)
     
     return
 

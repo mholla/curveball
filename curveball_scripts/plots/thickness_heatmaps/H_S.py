@@ -221,7 +221,7 @@ def heatmap_circle(t_ave_map, ind_ave_map, s, l):
     ylabels = l
     xlabels = s
     
-    xlabels = xlabels[ : -1]
+    xlabels = xlabels[ : -2]
     
     x, y = np.meshgrid(np.arange(M), np.arange(N))
     
@@ -230,12 +230,12 @@ def heatmap_circle(t_ave_map, ind_ave_map, s, l):
     col = PatchCollection(circles, array=t_ave_map.flatten(), cmap=rev_color_map)
     ax.add_collection(col)
     ax.set_aspect(1)
-    ax.set(xticks=np.arange(M)-0.5, yticks=np.arange(N+1)-0.5, xticklabels=xlabels, yticklabels=ylabels)
+    ax.set(xticks=np.arange(M-1)-0.5, yticks=np.arange(N+1)-0.5, xticklabels=xlabels, yticklabels=ylabels)
     ax.tick_params(axis='x', labelrotation = 45)
     plt.gca().invert_yaxis()
-    
     fig.colorbar(col)
-    plt.show()
+    fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/h_s.png'
+    plt.savefig(fname, dpi = 500)
     
     return
 

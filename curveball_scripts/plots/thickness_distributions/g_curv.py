@@ -188,20 +188,20 @@ for line in lines:
 # Plot    
 plt.figure()
 ax = sns.kdeplot(t_sulc_K, color='#31688E', shade=True, label='Pos k1, k2',bw_adjust=3, cut=0)
-bx = sns.kdeplot(t_neg_K, color='#FDE725', shade=True, label='Neg K', bw_adjust=3, cut=0)
-cx = sns.kdeplot(t_gyr_K, color='#31688E', shade=True, label='Neg k1, k2', bw_adjust=3, cut=0)
+ax = sns.kdeplot(t_neg_K, color='#FDE725', shade=True, label='Neg K', bw_adjust=3, cut=0)
+ax = sns.kdeplot(t_gyr_K, color='#31688E', shade=True, label='Neg k1, k2', bw_adjust=3, cut=0)
 plt.legend(loc='best', prop={'size': 14})
 ax.set(xlim=(0.5, 5))
-bx.set(xlim=(0.5, 5))
-cx.set(xlim=(0.5, 5))
-plt.show()
+ax.set(xlim=(0.5, 5))
+ax.set(xlim=(0.5, 5))
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/g_curv_dist.png'
+plt.savefig(fname, dpi = 500)
 
 # box plot
 plt.figure()
 ax = sns.stripplot(data=[d3_K, d2_K, d1_K], linewidth=1, color='white', edgecolor='black', size=5)
 ax = sns.boxplot(data=[d3_K, d2_K, d1_K], fliersize=0, linewidth=1.5, width = 0.4, color='lightgrey')
-ax.yaxis.tick_right()
 ax.set(ylim=(0, 1.2))
 ax.tick_params(axis = "x", which = "both", bottom = False, top = False)
-plt.show()
-
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/g_curv_effect.png'
+plt.savefig(fname, dpi = 500)

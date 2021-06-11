@@ -119,14 +119,15 @@ bx = sns.kdeplot(t_sulc_S, color='#31688E', shade=True, label = 'S<0', bw_adjust
 plt.legend(loc='best', prop={'size': 14})
 ax.set(xlim=(0.5, 5))
 bx.set(xlim=(0.5, 5))
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/s_depth_dist.png'
+plt.savefig(fname, dpi = 500)
 
 #Box plot
 plt.figure()
 cx = sns.stripplot(data=[d_S], linewidth=1, color='white', edgecolor='black', size=7)
 cx = sns.boxplot(data=[d_S], fliersize=0, linewidth=1.5, width = 0.3, color='lightgrey')
-cx.yaxis.tick_right()
 cx.set(ylim=(0, 1.2))
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/s_depth_effect.png'
+plt.savefig(fname, dpi = 500)
 
 

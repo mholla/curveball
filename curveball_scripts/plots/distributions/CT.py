@@ -50,7 +50,8 @@ for line in lines:
 plt.figure()
 sns.kdeplot(t_all, color='#3E4A89', shade=True, bw_adjust=3, label='Cortical thickness')
 plt.legend(loc='best', prop={'size': 12})
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/ct.png'
+plt.savefig(fname, dpi = 500)
 
 #Statistics
 var = statistics.variance(t_all)

@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import os
-import statistics
-from scipy.stats import skew
 import scipy.stats as stats
 
 input_txt = 'subjects_Yale_TD.txt'
@@ -116,7 +114,8 @@ ax = sns.kdeplot(t_sulc_H, color='#FDE725', shade=True, label='Positive H', bw_a
 bx = sns.kdeplot(t_gyr_H, color='#31688E', shade=True, label='Negative H', bw_adjust=2, cut=0)
 ax.set(xlim=(0.5, 5))
 bx.set(xlim=(0.5, 5))
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/mean_curv_dist.png'
+plt.savefig(fname, dpi = 500)
 
 #T-test
 p = stats.ttest_ind(a=t_sulc_H,b=t_gyr_H,equal_var=False)
@@ -125,7 +124,7 @@ p_val = p[1]
 plt.figure()
 ax = sns.stripplot(data=[d_H], linewidth=1, color='white', edgecolor='black', size=7)
 ax = sns.boxplot(data=[d_H], fliersize=0, linewidth=1.5, width = 0.25, color='lightgrey')
-ax.yaxis.tick_right()
 ax.set(ylim=(0, 1.2))
 ax.tick_params(axis = "x", which = "both", bottom = False, top = False)
-plt.show()
+fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/mean_curv_effect.png'
+plt.savefig(fname, dpi = 500)
