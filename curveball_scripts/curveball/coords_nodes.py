@@ -36,7 +36,7 @@ def coords_nodes(subjects_dir,subject):
     import numpy as np
     import os
 
-    hemis = ['lh','rh']
+    hemis = ['lh', 'rh']
     
     for hemi in hemis:
         

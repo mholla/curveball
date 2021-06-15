@@ -13,11 +13,7 @@ def smooth(subjects_dir,subject,x,y,z):
     import numpy as np
     import os
     
-    subjects_name = 'Yale_vtk'
-    subjects_dir = os.path.join(os.getcwd(),subjects_name)
-    subject = 'Yale_0050551'
-    
-    hemis = ['lh','rh']
+    hemis = ['lh', 'rh']
     
     for hemi in hemis:
 
@@ -26,9 +22,9 @@ def smooth(subjects_dir,subject,x,y,z):
         for l in range(len(curv)):
             
             if curv[l] == 'thickness':
-                curv_name = '{h}.{c}.asc'.format(c=curv[l], h=hemi) # Curvature data to be smoothed 
+                curv_name = '{h}.{c}.asc'.format(c=curv[l], h=hemi) 
             else:
-                curv_name = 'lh.pial.{c}.asc'.format(c=curv[l]) # Curvature data to be smoothed
+                curv_name = '{h}.pial.{c}.asc'.format(c=curv[l], h=hemi)
             
             input_name = os.path.join(subjects_dir, subject, 'surf', curv_name)
             input_data = np.zeros(len(x))
@@ -45,7 +41,7 @@ def smooth(subjects_dir,subject,x,y,z):
             input_ndl = '{h}.pial.neighbor.asc'.format(h=hemi)
             ndl_file = os.path.join(subjects_dir, subject, 'surf', input_ndl)
             ndl = np.loadtxt(ndl_file)
-            nb = np.zeros(len(x)) # max number of neighbor for each vertex
+            nb = np.zeros(len(x)) 
                
             for i in range(len(x)):
                 for j in range(len(ndl[0])):
@@ -69,7 +65,6 @@ def smooth(subjects_dir,subject,x,y,z):
                     
                     if le <= 1: #corrupted vertices (one or two vertices can have zero area due to remeshing)
                         input_data[i] = input_data[i]
-                        # print(i)
                         
                     elif le > 1:
                     
@@ -94,9 +89,9 @@ def smooth(subjects_dir,subject,x,y,z):
                         input_data[i] = (strength * total_value) + ((1-strength) * input_data[i])
              
             if curv[l] == 'thickness':
-                curv_name = '{h}.{c}.w2.asc'.format(c=curv[l], h=hemi)
+                curv_name = '{h}.{c}.w2.asc'.format(c=curv[l], h=hemi) # w2 means 2 iterations of smoothing
             else:
-                curv_name = '{h}.pial.{c}.w2.asc'.format(c=curv[l], h=hemi)
+                curv_name = '{h}.pial.{c}.w2.asc'.format(c=curv[l], h=hemi) # w2 means 2 iterations of smoothing
             
             curv_name = os.path.join(subjects_dir, subject, 'surf', curv_name)
         

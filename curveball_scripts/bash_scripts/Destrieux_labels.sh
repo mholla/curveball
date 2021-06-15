@@ -1,15 +1,16 @@
+#!/bin/bash
+
 export FREESURFER_HOME=/Applications/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
-export SUBJECTS_DIR=//Users/nagehan/Documents/scripts2/bigbrain/Yale_vtk
+export SUBJECTS_DIR=//Users/nagehan/Documents/Github/curveball/curveball_scripts/curveball/Yale_vtk
 
-input="/Users/nagehan/subjects/subjects_yale_TD.txt"
+input="/Users/nagehan/Documents/Github/curveball/curveball_scripts/curveball/subjects_yale_TD.txt"
 
 while IFS= read -r line
 
 do
 	echo "$line"
 	printf '%s\n' "$line"
-
 
 	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/lh.G_and_S_cingul-Ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/lh.G_and_S_cingul-Ant.label --hemi lh --regmethod surface
 	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/lh.G_and_S_cingul-Mid-Ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/lh.G_and_S_cingul-Mid-Ant.label --hemi lh --regmethod surface
@@ -86,6 +87,84 @@ do
 	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/lh.S_temporal_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/lh.S_temporal_sup.label --hemi lh --regmethod surface
 	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/lh.S_temporal_transverse.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/lh.S_temporal_transverse.label --hemi lh --regmethod surface
 	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/lh.Unknown.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/lh.Unknown.label --hemi lh --regmethod surface
+
+
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_cingul-Ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_cingul-Ant.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_cingul-Mid-Ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_cingul-Mid-Ant.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_cingul-Mid-Post.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_cingul-Mid-Post.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_frontomargin.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_frontomargin.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_occipital_inf.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_occipital_inf.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_paracentral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_paracentral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_subcentral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_subcentral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_and_S_transv_frontopol.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_and_S_transv_frontopol.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_cingul-Post-dorsal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_cingul-Post-dorsal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_cingul-Post-ventral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_cingul-Post-ventral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_cuneus.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_cuneus.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_front_inf-Opercular.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_front_inf-Opercular.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_front_inf-Orbital.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_front_inf-Orbital.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_front_inf-Triangul.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_front_inf-Triangul.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_front_middle.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_front_middle.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_front_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_front_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_Ins_lg_and_S_cent_ins.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_Ins_lg_and_S_cent_ins.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_insular_short.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_insular_short.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_oc-temp_lat-fusifor.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_oc-temp_lat-fusifor.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_oc-temp_med-Lingual.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_oc-temp_med-Lingual.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_oc-temp_med-Parahip.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_oc-temp_med-Parahip.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_occipital_middle.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_occipital_middle.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_occipital_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_occipital_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_orbital.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_orbital.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_pariet_inf-Angular.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_pariet_inf-Angular.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_pariet_inf-Supramar.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_pariet_inf-Supramar.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_parietal_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_parietal_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_postcentral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_postcentral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_precentral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_precentral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_precuneus.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_precuneus.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_rectus.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_rectus.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_subcallosal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_subcallosal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temp_sup-G_T_transv.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temp_sup-G_T_transv.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temp_sup-Lateral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temp_sup-Lateral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temp_sup-Plan_polar.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temp_sup-Plan_polar.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temp_sup-Plan_tempo.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temp_sup-Plan_tempo.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temporal_inf.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temporal_inf.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.G_temporal_middle.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.G_temporal_middle.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Lat_Fis-ant-Horizont.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Lat_Fis-ant-Horizont.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Lat_Fis-ant-Vertical.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Lat_Fis-ant-Vertical.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Lat_Fis-post.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Lat_Fis-post.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Pole_occipital.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Pole_occipital.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Pole_temporal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Pole_temporal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_calcarine.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_calcarine.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_central.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_central.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_cingul-Marginalis.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_cingul-Marginalis.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_circular_insula_ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_circular_insula_ant.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_circular_insula_inf.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_circular_insula_inf.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_circular_insula_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_circular_insula_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_collat_transv_ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_collat_transv_ant.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_collat_transv_post.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_collat_transv_post.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_front_inf.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_front_inf.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_front_middle.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_front_middle.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_front_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_front_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_interm_prim-Jensen.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_interm_prim-Jensen.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_intrapariet_and_P_trans.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_intrapariet_and_P_trans.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_oc_middle_and_Lunatus.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_oc_middle_and_Lunatus.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_oc_sup_and_transversal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_oc_sup_and_transversal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_oc-temp_lat.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_oc-temp_lat.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_oc-temp_med_and_Lingual.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_oc-temp_med_and_Lingual.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_occipital_ant.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_occipital_ant.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_orbital_lateral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_orbital_lateral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_orbital_med-olfact.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_orbital_med-olfact.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_orbital-H_Shaped.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_orbital-H_Shaped.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_parieto_occipital.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_parieto_occipital.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_pericallosal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_pericallosal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_postcentral.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_postcentral.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_precentral-inf-part.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_precentral-inf-part.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_precentral-sup-part.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_precentral-sup-part.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_suborbital.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_suborbital.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_subparietal.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_subparietal.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_temporal_inf.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_temporal_inf.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_temporal_sup.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_temporal_sup.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.S_temporal_transverse.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.S_temporal_transverse.label --hemi rh --regmethod surface
+	mri_label2label --trgsurf pial --srcsubject fsaverage --srclabel $SUBJECTS_DIR/fsaverage/label/labels/rh.Unknown.label --trgsubject $line --trglabel $SUBJECTS_DIR/$line/label/rh.Unknown.label --hemi rh --regmethod surface
+
 
 
 done < "$input"
