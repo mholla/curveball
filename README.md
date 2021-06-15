@@ -16,6 +16,8 @@ The curveball.py script is the main script of the pipeline.
 Generate an input text file which should list the names of your subjects. An example is provided in the curveball folder. 
 Place your subjects folder and input file inside the curveball folder together with all the other necessary scripts to successfully run the curveball.py. 
 
+The pipeline takes approximately 1.5-2 hours to completely run for the decimated surface mesh (~40k nodes) per hemisphere using a single core processor.
+
 
 
 
