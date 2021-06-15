@@ -8,7 +8,7 @@ Data used for this pipeline (Yale subset of the ABIDE database) can be obtained 
 
 First, run the mris_convert_vtk.sh script to convert ?h.pial and ?h.white files into ?h.pial.vtk and ?h.white.vtk files.
 
-Secondly, run BA_labels.sh and Destrieux_labels.sh to generate the regional label files.
+Secondly, run BA_labels.sh and Destrieux_labels.sh to generate the regional label files. If not interested in regional data, remove the region_Destrieux.py andregion_Brodmann.py from curveball folder and skip this step.
 
 #Run python scripts
 
