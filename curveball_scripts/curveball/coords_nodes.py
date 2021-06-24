@@ -31,51 +31,47 @@ Input mesh file can be .asc or .txt file format.
 
 """
 
-def coords_nodes(subjects_dir,subject):
+def coords_nodes(subjects_dir,subject,hemi):
     
     import numpy as np
     import os
-
-    hemis = ['lh', 'rh']
+        
+    input_mesh = '{h}.pial.asc'.format(h=hemi)
     
-    for hemi in hemis:
+    m_filename = os.path.join(subjects_dir, subject, 'surf', input_mesh)
+    
+    with open(m_filename,'r') as coord_file:
+        coord_lines = coord_file.readlines()
+        v_f = coord_lines[1].split()
+        v = int(v_f[0])
+        f = int(v_f[1])
+    
+    # Coordinates x,y,z
+    x = np.zeros(len(coord_lines) - f-2)
+    y = np.zeros(len(coord_lines) - f-2)
+    z = np.zeros(len(coord_lines) - f-2)
+    
+    
+    for i in range(2, len(coord_lines) - f): 
+    
+        coord_data = coord_lines[i].split()
         
-        input_mesh = '{h}.pial.asc'.format(h=hemi)
+        x[i-2] = float(coord_data[0])
+        y[i-2] = float(coord_data[1])
+        z[i-2] = float(coord_data[2])
+          
+    # Triangle vertex connectivity a, b, c
+    a = np.zeros(len(coord_lines) - len(x) -2)
+    b = np.zeros(len(coord_lines) - len(x) -2)
+    c = np.zeros(len(coord_lines) - len(x) -2)
         
-        m_filename = os.path.join(subjects_dir, subject, 'surf', input_mesh)
+    for i in range(v+2, len(coord_lines)):
         
-        with open(m_filename,'r') as coord_file:
-            coord_lines = coord_file.readlines()
-            v_f = coord_lines[1].split()
-            v = int(v_f[0])
-            f = int(v_f[1])
+        tri_data = coord_lines[i].split()
         
-        # Coordinates x,y,z
-        x = np.zeros(len(coord_lines) - f-2)
-        y = np.zeros(len(coord_lines) - f-2)
-        z = np.zeros(len(coord_lines) - f-2)
-        
-        
-        for i in range(2, len(coord_lines) - f): 
-        
-            coord_data = coord_lines[i].split()
-            
-            x[i-2] = float(coord_data[0])
-            y[i-2] = float(coord_data[1])
-            z[i-2] = float(coord_data[2])
-              
-        # Triangle vertex connectivity a, b, c
-        a = np.zeros(len(coord_lines) - len(x) -2)
-        b = np.zeros(len(coord_lines) - len(x) -2)
-        c = np.zeros(len(coord_lines) - len(x) -2)
-            
-        for i in range(v+2, len(coord_lines)):
-            
-            tri_data = coord_lines[i].split()
-            
-            a[i-v-2] = int(tri_data[0])
-            b[i-v-2] = int(tri_data[1])
-            c[i-v-2] = int(tri_data[2])
+        a[i-v-2] = int(tri_data[0])
+        b[i-v-2] = int(tri_data[1])
+        c[i-v-2] = int(tri_data[2])
         
     return x,y,z,a,b,c
 
