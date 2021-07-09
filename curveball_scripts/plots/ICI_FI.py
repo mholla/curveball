@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-input_txt = 'subjects_Yale_TD.txt'
+input_txt = 'subjects_ABIDE_TD.txt'
 path = os.path.join(os.getcwd(),input_txt)
 with open(path) as f: lines = f.read().splitlines()
 
@@ -51,8 +51,8 @@ for line in lines:
   
         ICI_FI = '{h}.pial.ICI.FI.asc'.format(h=hemi)
     
-        subjects_name = 'Yale_vtk'
-        subjects_dir = os.path.join(os.getcwd(),subjects_name)
+        subjects_name = 'subjects_ABIDE_TD'
+        subjects_dir = os.path.join(os.getcwd(),subjects_name,subjects_name)
         subject = '{l}'.format(l=line)
         
         ICI_FI = os.path.join(subjects_dir, subject, 'surf', ICI_FI)
@@ -155,5 +155,10 @@ ax.bar(X + 0.00, data[0], color = '#FDE725', width = 0.25, yerr = error[0])
 ax.bar(X + 0.25, data[1], color = '#1F9E89', width = 0.25, yerr = error[1])
 ax.bar(X + 0.50, data[2], color = '#3E4A89', width = 0.25, yerr = error[2])
 ax.legend(labels=['concave', 'saddle', 'convex'])
-fname = '/high_res/ici_fi.png'
+fname = '/afs/crc.nd.edu/group/commandlab/Nagehan/curveball_scripts/plots/results_all/ici_fi_all.png'
 plt.savefig(fname, dpi = 500)
+
+ICI_FI_name = '/afs/crc.nd.edu/group/commandlab/Nagehan/curveball_scripts/plots/results_all/ici_fi_all.asc'
+        
+np.savetxt(ICI_FI_name, data, fmt='%6.2f', delimiter=' '' ') 
+    

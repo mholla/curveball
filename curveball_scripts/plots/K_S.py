@@ -11,8 +11,9 @@ import numpy as np
 import os
 from numpy import *
 import numpy.ma as ma
+import heatmap_circle
 
-input_txt = 'subjects_yale_TD.txt'
+input_txt = 'subjects_ABIDE_TD.txt'
 path = os.path.join(os.getcwd(),input_txt)
 with open(path) as f: lines = f.read().splitlines()
 
@@ -30,11 +31,11 @@ for line in lines:
         
     for hemi in hemis:
     
-        subjects_name = 'Yale_vtk'
+        subjects_name = 'subjects_ABIDE_TD'
         subjects_dir = os.path.join(os.getcwd(),subjects_name)
         subject = '{l}'.format(l=line)
     
-        S = '{h}.sulc.shrink_18.asc'.format(h=hemi)
+        S = '{h}.sulc.shrink.asc'.format(h=hemi)
         t = '{h}.thickness.asc'.format(h=hemi)
         K = '{h}.pial.K.asc'.format(h=hemi)
     
@@ -153,7 +154,7 @@ for line in lines:
 subj_map = np.zeros([len(t_map),len(t_map)])
 
 for i in range(len(subj_map)):
-    subj_map[i] = 28
+    subj_map[i] = len(lines)
 
     
 for i in range(len(s)-1):
@@ -162,7 +163,7 @@ for i in range(len(s)-1):
         
         for line in lines:
 
-            subjects_name = 'Yale_vtk'
+            subjects_name = 'subjects_ABIDE_TD'
             subjects_dir = os.path.join(os.getcwd(),subjects_name)
             subject = '{l}'.format(l=line)
             
@@ -175,7 +176,7 @@ ind_ave_map = np.zeros([len(t_map),len(t_map)])
                 
 for line in lines:
     
-    subjects_name = 'Yale_vtk'
+    subjects_name = 'subjects_ABIDE_TD'
     subjects_dir = os.path.join(os.getcwd(),subjects_name)
     subject = '{l}'.format(l=line)
     
@@ -186,56 +187,8 @@ t_ave_map = t_ave_map / subj_map
 ind_ave_map = ind_ave_map / subj_map
 
 """
-Cortical thickness map with size of circles indicating total number of vertices
+Plot cortical thickness map; size of circles indicate total number of vertices within that range
 """
 
-def heatmap_circle(t_ave_map, ind_ave_map, s, l):
-    
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from matplotlib.collections import PatchCollection
-    
-    # arrange size of the circles according to total # of vertex map
-    N = len(t_ave_map)
-    M = len(t_ave_map)
-    
-    size = np.zeros([M,N])
-    
-    for i in range(len(ind_ave_map)):
-        for j in range(len(ind_ave_map)):
-            if ind_ave_map[i,j] > 500:
-                size[i,j] = 0.5
-            elif ind_ave_map[i,j] > 100 and ind_ave_map[i,j] <= 500:
-                size[i,j] = 0.4
-            elif ind_ave_map[i,j] > 10 and ind_ave_map[i,j] <= 100:
-                size[i,j] = 0.3
-                
-            else:
-                size[i,j] = 0.2
-            
-    # reverse color map    
-    color_map = plt.cm.get_cmap('viridis')
-    rev_color_map = color_map.reversed()
-    
-    ylabels = l
-    xlabels = s
-    
-    xlabels = xlabels[ : -2]
-    
-    x, y = np.meshgrid(np.arange(M), np.arange(N))
-    
-    fig, ax = plt.subplots()
-    circles = [plt.Circle((j,i), radius=r) for r, j, i in zip(size.flat, x.flat, y.flat)]
-    col = PatchCollection(circles, array=t_ave_map.flatten(), cmap=rev_color_map)
-    ax.add_collection(col)
-    ax.set_aspect(1)
-    ax.set(xticks=np.arange(M-1)-0.5, yticks=np.arange(N+1)-0.5, xticklabels=xlabels, yticklabels=ylabels)
-    ax.tick_params(axis='x', labelrotation = 45, bottom=False,)
-    plt.gca().invert_yaxis()
-    fig.colorbar(col)
-    fname = '/Users/nagehan/Documents/Papers/1st_manuscript/high_res/k_s.png'
-    plt.savefig(fname, dpi = 500)
-    return
-
-
+heatmap_circle.heatmap_circle(t_ave_map, ind_ave_map, s, l)
 

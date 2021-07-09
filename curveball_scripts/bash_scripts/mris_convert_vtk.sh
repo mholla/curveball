@@ -18,7 +18,5 @@ do
 	mris_convert $SUBJECTS_DIR/Yale/$line/surf/lh.pial $SUBJECTS_DIR/Yale/$line/surf/lh.pial.vtk
 	mris_convert $SUBJECTS_DIR/Yale/$line/surf/rh.pial $SUBJECTS_DIR/Yale/$line/surf/rh.pial.vtk
 
-	mris_convert $SUBJECTS_DIR/Yale/$line/surf/lh.inflated $SUBJECTS_DIR/Yale/$line/surf/lh.inflated.vtk
-	mris_convert $SUBJECTS_DIR/Yale/$line/surf/rh.inflated $SUBJECTS_DIR/Yale/$line/surf/rh.inflated.vtk
 
 done < "$input"

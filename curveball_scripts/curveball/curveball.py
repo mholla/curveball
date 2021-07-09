@@ -35,27 +35,27 @@ def curveball():
     import region_Brodmann
     import t_ratio
     
-    input_txt = 'subjects_yale_TD.txt'
+    input_txt = 'subjects_ABIDE_TD.txt'
     path = os.path.join(os.getcwd(),input_txt)
     with open(path) as f: lines = f.read().splitlines()
     
     for line in lines:
         
-        subjects_name = 'Yale_vtk'
+        subjects_name = 'subjects_ABIDE_TD'
         subjects_dir = os.path.join(os.getcwd(),subjects_name)
         subject = '{l}'.format(l=line)
-    
-        mesh_pial_white.mesh_pial_white(subjects_dir, subject)
-        
-        mesh_alpha.mesh_alpha(subjects_dir, subject)
-        
-        cort_thick.cort_thick(subjects_dir, subject)
-        
-        sulcal_depth.sulcal_depth(subjects_dir, subject)
         
         hemis = ['lh','rh']
         
         for hemi in hemis:
+            
+            mesh_pial_white.mesh_pial_white(subjects_dir, subject, hemi)
+        
+            mesh_alpha.mesh_alpha(subjects_dir, subject, hemi)
+        
+            cort_thick.cort_thick(subjects_dir, subject, hemi)
+        
+            sulcal_depth.sulcal_depth(subjects_dir, subject, hemi)
       
             x,y,z,a,b,c = coords_nodes.coords_nodes(subjects_dir,subject, hemi)
             
@@ -69,11 +69,11 @@ def curveball():
             
             ICI_FI_area.ICI_FI_area(subjects_dir,subject,hemi)
             
+            smooth.smooth(subjects_dir,subject,x,y,z,hemi)
+            
             region_Brodmann.region_Brodmann(a,b,c,x,y,z,subjects_dir, subject,hemi)
             
             region_Destrieux.region_Destrieux(a,b,c,x,y,z,subjects_dir, subject,hemi)
-            
-            smooth.smooth(subjects_dir,subject,x,y,z,hemi)
             
             t_ratio.t_ratio(subjects_dir,subject,hemi)
     
