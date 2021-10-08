@@ -50,25 +50,22 @@ def sulcal_depth(subjects_dir, subject, hemi):
     """ Calculate sulcal depth for isometrically (15%) shrunken alpha surface mesh
     First, center each mesh to the origin point (0,0,0)"""
     
-    a_bounds = mesh_alpha.bounds
-    p_bounds = mesh_pial.bounds
-    
-    trans_ax = (abs(a_bounds[0]) + abs(a_bounds[1]))/2 + a_bounds[0]
-    trans_ay = (abs(a_bounds[2]) + abs(a_bounds[3]))/2 + a_bounds[2]
-    trans_az = (abs(a_bounds[4]) + abs(a_bounds[5]))/2 + a_bounds[4]
-    
-    mesh_alpha.translate([-trans_ax, -trans_ay, -trans_az])
-    
-    trans_px = (abs(p_bounds[0]) + abs(p_bounds[1]))/2 + p_bounds[0]
-    trans_py = (abs(p_bounds[2]) + abs(p_bounds[3]))/2 + p_bounds[2]
-    trans_pz = (abs(p_bounds[4]) + abs(p_bounds[5]))/2 + p_bounds[4]
-    
-    mesh_pial.translate([-trans_px, -trans_py, -trans_pz])
-    
     a_center = mesh_alpha.center
-    p_center = mesh_pial.center
+    p_center = mesh_pial.
+
+    mesh_alpha.translate([-a_center[0], -a_center[1], -a_center[2]])
+    mesh_pial.translate([-p_center[0], -p_center[1], -p_center[2]])
     
-    mesh_alpha.points /= 1.14 # shrinkage percentage
+    magnitude = np.zeros(len(mesh_alpha.points))
+    offset = np.zeros(len(mesh_alpha.points))
+    
+    for i in range(len(mesh_alpha.points)):
+        
+        magnitude[i] = np.linalg.norm(mesh_alpha.points[i])
+        offset[i] = (magnitude[i] - 7)/magnitude[i]
+    
+    for i in range(len(mesh_alpha.points)):
+        mesh_alpha.points[i] *= offset[i]
     
     s_shrink = np.zeros(len(mesh_pial.points))
     
