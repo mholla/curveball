@@ -1,14 +1,15 @@
 # curveball
 
-This pipeline includes many sub-scripts to quantitatively analyze the cortex of the brain. Although the pipeline can take any cortical (triangular) surface mesh as an input, the scripts are optimized to work with Freesurfer outputted pial and white surface meshes. 
+This pipeline includes many sub-scripts to quantitatively analyze the cortex of the brain. Although the pipeline can take any cortical (triangular) surface mesh as an input, including Freesurfer reconstructed surface mesh files such as ?h.pial and ?h.white. But convert them into .vtk format using mris_convert if you want to use these surface meshes. 
 
-Data used for this pipeline (Yale subset of the ABIDE database) can be obtained from http://fcon_1000.projects.nitrc.org/indi/abide/abide_I.html; cortical surface meshes (?h.pial and ?h.white) can be reconstructed using Freesurfer.
+Data used for this pipeline (ABIDE dataset) can be obtained from http://fcon_1000.projects.nitrc.org/indi/abide/abide_I.html. The reconstructed surface files using Freesurfer are also in here: http://preprocessed-connectomes-project.org/abide/index.html
 
 #Run bash scripts
 
 First, run the mris_convert_vtk.sh script to convert ?h.pial and ?h.white files into ?h.pial.vtk and ?h.white.vtk files.
 
-Secondly, run BA_labels.sh and Destrieux_labels.sh to generate the regional label files. If not interested in regional data, remove the region_Destrieux.py andregion_Brodmann.py from curveball folder and skip this step.
+Secondly, run BA_labels.sh and Destrieux_labels.sh to generate the regional label files. If not interested in regional data, remove the region_Destrieux.py and
+region_Brodmann.py from curveball folder and skip this step.
 
 #Run python scripts
 
