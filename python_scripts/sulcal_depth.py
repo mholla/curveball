@@ -54,7 +54,7 @@ def sulcal_depth(subjects_dir, subject, hemi):
     First, center each mesh to the origin point (0,0,0)"""
     
     a_center = mesh_alpha.center
-    p_center = mesh_pial.
+    p_center = mesh_pial.center
 
     mesh_alpha.translate([-a_center[0], -a_center[1], -a_center[2]])
     mesh_pial.translate([-p_center[0], -p_center[1], -p_center[2]])
