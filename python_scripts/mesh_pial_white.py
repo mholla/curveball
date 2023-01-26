@@ -31,14 +31,14 @@ def mesh_pial_white(subjects_dir, subject, hemi):
     mesh_white = pv.read(mesh_white)
     
     # Mesh decimation with pyvista
-    target_reduction = 0.7
+    target_reduction = 0.7 # set target reduction value (0%: no reduction, 1: 100% percent reduction)
     mesh_dec_pial = mesh_pial.decimate(target_reduction)
     mesh_dec_white = mesh_white.decimate(target_reduction)
     
     # Mesh Smoothing, cleaning, triangulation with Pyvista (Laplacian Smoothing)
     
-    mesh_smooth_pial = mesh_dec_pial.triangulate().clean().smooth(n_iter=50)
-    mesh_smooth_white = mesh_dec_white.triangulate().clean().smooth(n_iter=50)
+    mesh_smooth_pial = mesh_dec_pial.triangulate().clean().smooth(n_iter=10) # set Laplacian smoothing iteration
+    mesh_smooth_white = mesh_dec_white.triangulate().clean().smooth(n_iter=10) # set Laplacian smoothing iteration
     
     # Save in ply format
     mesh_smooth_pial.save(os.path.join(subjects_dir, subject, 'surf', '{h}.pial.ply'.format(h=hemi)))
@@ -52,8 +52,50 @@ def mesh_pial_white(subjects_dir, subject, hemi):
     mesh_pial = o3d.io.read_triangle_mesh(mesh_pial)
     mesh_white = o3d.io.read_triangle_mesh(mesh_white)
     
-    mesh_pial = mesh_pial.filter_smooth_taubin(number_of_iterations=100)
-    mesh_white = mesh_white.filter_smooth_taubin(number_of_iterations=100)
+    # Clean/repair mesh
+    
+    mesh_pial.remove_degenerate_triangles()
+    mesh_pial.remove_duplicated_triangles()
+    mesh_pial.remove_duplicated_vertices()
+    mesh_pial.remove_non_manifold_edges()
+    mesh_pial.remove_unreferenced_vertices()
+    
+    mesh_white.remove_degenerate_triangles()
+    mesh_white.remove_duplicated_triangles()
+    mesh_white.remove_duplicated_vertices()
+    mesh_white.remove_non_manifold_edges()
+    mesh_white.remove_unreferenced_vertices()
+    
+    mesh_pial = mesh_pial.simplify_quadric_decimation(target_number_of_triangles=3200) # set target number of total triangles 
+    mesh_white = mesh_white.simplify_quadric_decimation(target_number_of_triangles=3200) # set target number of total triangles
+    
+    mesh_pial = mesh_pial.subdivide_loop(number_of_iterations=1)
+    mesh_pial = mesh_pial.subdivide_midpoint(number_of_iterations=1)
+    #mesh_pial = mesh_pial.filter_smooth_laplacian(number_of_iterations=1)
+    mesh_pial = mesh_pial.filter_smooth_taubin(number_of_iterations=50)
+    
+    mesh_white = mesh_white.subdivide_loop(number_of_iterations=1)
+    mesh_white = mesh_white.subdivide_midpoint(number_of_iterations=1)
+    #mesh_white = mesh_white.filter_smooth_laplacian(number_of_iterations=1)
+    mesh_white = mesh_white.filter_smooth_taubin(number_of_iterations=50)
+    
+    mesh_pial.remove_degenerate_triangles()
+    mesh_pial.remove_duplicated_triangles()
+    mesh_pial.remove_duplicated_vertices()
+    mesh_pial.remove_non_manifold_edges()
+    mesh_pial.remove_unreferenced_vertices()
+    
+    mesh_white.remove_degenerate_triangles()
+    mesh_white.remove_duplicated_triangles()
+    mesh_white.remove_duplicated_vertices()
+    mesh_white.remove_non_manifold_edges()
+    mesh_white.remove_unreferenced_vertices()
+    
+    m_pial = os.path.join(subjects_dir, subject, 'surf','{h}.pial.smooth.ply'.format(h=hemi))
+    m_white = os.path.join(subjects_dir, subject, 'surf','{h}.white.smooth.ply'.format(h=hemi))
+    
+    o3d.io.write_triangle_mesh(m_pial, mesh_pial)
+    o3d.io.write_triangle_mesh(m_white, mesh_white)
     
     # Coordinates and mesh connectivity
                        
