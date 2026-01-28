@@ -1,31 +1,95 @@
-# curveball
+Curveball
 
-This pipeline includes many sub-scripts to quantitatively analyze the cortex of the brain. The pipeline can take any cortical (triangular) surface mesh as an input, including Freesurfer reconstructed surface mesh files such as ?h.pial and ?h.white. But convert them into .vtk format using mris_convert first. 
+Pipeline for quantitative analysis of cortical surface meshes from Freesurfer (?h.pial / ?h.white).
 
-Data used for this pipeline (ABIDE dataset) can be obtained from http://fcon_1000.projects.nitrc.org/indi/abide/abide_I.html. The reconstructed surface files using Freesurfer are also in here: http://preprocessed-connectomes-project.org/abide/index.html
+Computes:
+- Cortical thickness
+- Sulcal depth (standard + shrunken alpha surface)
+- Mean & Gaussian curvature
+- Principal curvatures (k1, k2), shape index (SI), curvedness (CVD)
+- Intrinsic curvature index (ICI) & folding index (FI)
+- Gyral/sulcal thickness ratio at multiple coverage levels
 
-#Run bash scripts
+Originally built for datasets like ABIDE; now generalized, significantly faster, and easier to use.
 
-First, run the mris_convert_vtk.sh script to convert ?h.pial and ?h.white files into ?h.pial.vtk and ?h.white.vtk files.
+Citation
+If you use this pipeline in published work, please cite:
+Demirci, N., & Holland, S. K. (2023). Cortical thickness systematically varies with curvature and depth in healthy human brains. Human Brain Mapping. DOI: 10.1002/hbm.25776
 
-Secondly, run BA_labels.sh and Destrieux_labels.sh to generate the regional label files. If not interested in regional data, remove the region_Destrieux.py and
-region_Brodmann.py from the curveball folder and skip this step.
+Improvements in v2.0 (2025 refresh)
 
-#Run python scripts
+~90% faster neighbor discovery
+The previous bottleneck (neighbor_info.py) was completely rewritten:
+- Old: O(V × T) complexity (nested loops scanning all triangles for every vertex)
+- New: O(T + V × N) using upfront vertex-to-triangle mapping
+- Result: neighbor finding now takes seconds instead of minutes on typical meshes (~40k–150k vertices)
 
-The curveball.py script is the main script of the pipeline. Only run this script.
+Added curvedness (CVD)
+New output {h}.pial.cvd.asc = √((k₁² + k₂²)/2) in the improved k1_k2_SI_CVD.py (replaces old k1_k2_SI.py).
 
-Generate an input text file with all the names of your subjects. An example is provided in the curveball folder. 
-Put your subjects folder and input file inside the curveball folder together with all the other necessary scripts to successfully run the curveball.py. 
+Generalized & cleaned up
+- No hard-coded paths — edit one line in curveball.py
+- Better file checks, empty-array handling, safer math
+- Clearer docstrings and comments
 
-The pipeline takes approximately 1.5-2 hours to completely run for the decimated surface mesh (~40k nodes) per hemisphere using a single-core processor.
+See CHANGELOG.md for full details.
 
-#Publications (if you use this tool in your research please also cite):
+Requirements
 
-Demirci, Nagehan, and Maria A. Holland. “Cortical Thickness Systematically Varies with Curvature and Depth in Healthy Human Brains.” Human Brain Mapping. doi.org/10.1002/hbm.25776. 
+- Python 3.6+
+- Install dependencies:
+pip install -r requirements.txt
+(numpy, scipy, pyvista, open3d)
 
-Github link: https://github.com/mholla/HBM22
+Prerequisites (one-time per dataset)
 
+1. Freesurfer outputs: surf/?h.pial, surf/?h.white (lh/rh)
 
+2. Convert to .vtk (run once):
+cd bash_scripts
+./mris_convert_vtk.sh /path/to/your/subjects_dir
 
+Optional (for regional stats with Brodmann/Destrieux):
+./BA_labels.sh /path/to/subjects_dir
+./Destrieux_labels.sh /path/to/subjects_dir
+(Comment out region calls in curveball.py if skipping.)
 
+Quick Start
+
+1. Organize your data:
+/your/base/folder/
+├── Subject001/
+│   └── surf/
+│       ├── lh.pial.vtk
+│       ├── rh.pial.vtk
+│       ├── lh.white.vtk
+│       └── ...
+├── Subject002/
+└── subjects.txt          # one subject folder name per line
+
+2. Clone or update the repo:
+git clone https://github.com/mholla/curveball.git
+cd curveball
+
+3. Edit one line in python_scripts/curveball.py:
+subjects_base_dir = "/your/base/folder"   # ← change this
+
+4. Run:
+cd python_scripts
+python curveball.py
+
+Or single subject:
+python curveball.py /your/base/folder/Subject001
+
+Outputs go into each subject’s surf/ folder (.asc files for thickness, curvatures, sulc, ICI/FI, CVD, ratios, etc.).
+
+Runtime Estimate
+~20-25 minutes per hemisphere on a typical laptop (decimated ~40k vertex mesh).
+
+Folder Structure
+
+- bash_scripts/ — conversion & labeling helpers
+- python_scripts/ — main pipeline (curveball.py calls everything)
+- subjects.txt — your subject list (copy from sample_subjects.txt)
+
+Questions or bugs → email with issue. 

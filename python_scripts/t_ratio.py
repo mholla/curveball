@@ -8,37 +8,45 @@ Parameters:
 Returns:
 -------
     Cortical thickness ratio: {h}.thickness.ratio.asc
-
 """
 
-def t_ratio(subjects_dir,subject,hemi):
-
+def t_ratio(subjects_dir, subject, hemi):
     import numpy as np
     import os
     
+    # Define input file names
     H = '{h}.pial.H.asc'.format(h=hemi)
     t = '{h}.thickness.asc'.format(h=hemi)
     
-    H = os.path.join(subjects_dir, subject, 'surf', H)
-    t = os.path.join(subjects_dir, subject, 'surf', t)
+    # Fixed paths: Remove 'subject' since subjects_dir is the full path
+    H = os.path.join(subjects_dir, 'surf', H)
+    t = os.path.join(subjects_dir, 'surf', t)
     
-    with open(H,'r') as H_file:
-        H_lines = H_file.readlines()
-        
+    # Reading mean curvature
+    try:
+        with open(H, 'r') as H_file:
+            H_lines = H_file.readlines()
+    except FileNotFoundError:
+        print(f"Error: Mean curvature file {H} not found for subject {subject}, hemi {hemi}")
+        return
+    
     h = np.zeros(len(H_lines))
-        
     for i in range(len(H_lines)):
         H_data = H_lines[i].split()
-        h[i] = H_data[4]
+        h[i] = float(H_data[4])
     
-    with open(t,'r') as t_file:
-        t_lines = t_file.readlines()
-        
+    # Reading cortical thickness
+    try:
+        with open(t, 'r') as t_file:
+            t_lines = t_file.readlines()
+    except FileNotFoundError:
+        print(f"Error: Cortical thickness file {t} not found for subject {subject}, hemi {hemi}")
+        return
+    
     t = np.zeros(len(t_lines))
-        
     for i in range(len(t_lines)):
         t_data = t_lines[i].split()
-        t[i] = t_data[4]
+        t[i] = float(t_data[4])
     
     gyral_sum = np.zeros(len(h))
     sulcal_sum = np.zeros(len(h))
@@ -73,18 +81,16 @@ def t_ratio(subjects_dir,subject,hemi):
     N_s = n_s * coverage
 
     # Cortical thickness ratio calculation for gyral and sulcal regions depending on sampling ratio (coverage)
-    
     ratio = np.zeros(len(N_g))
     gyral_sorted = np.sort(gyral_sum)
-    gyral_sorted_rev = gyral_sorted[::-1]
-    sulcal_sorted = np.sort(sulcal_sum)
+    gyral_sorted_rev = gyral_sorted[::-1] # descending order
+    sulcal_sorted = np.sort(sulcal_sum) # ascending order
     
     for j in range(len(N_g)):
-            
         t_g = np.zeros(len(t))
         t_s = np.zeros(len(t))
         
-        gyral_reduced = gyral_sorted_rev[:int(N_g[j])]
+        gyral_reduced = gyral_sorted_rev[:int(N_g[j])] # slices based on N_g[i] (number of elements taken from vector)
         sulcal_reduced = sulcal_sorted[:int(N_s[j])]
         
         for k in range(len(gyral_sum)):
@@ -98,10 +104,15 @@ def t_ratio(subjects_dir,subject,hemi):
         t_g = t_g[t_g != 0]
         t_s = t_s[t_s != 0]
                
-        ratio[j] = np.mean(t_g)/np.mean(t_s)   
-
-    array_name = os.path.join(subjects_dir, subject, 'surf', '{h}.thickness.ratio.asc'.format(h=hemi))
-    np.savetxt(array_name, ratio, fmt='%10.6f', delimiter=' '' ')
+        # Handle empty arrays to prevent errors in np.mean
+        mean_t_g = np.mean(t_g) if len(t_g) > 0 else 0
+        mean_t_s = np.mean(t_s) if len(t_s) > 0 else 0
         
-    return 
-    
+        # Avoid division by zero
+        ratio[j] = mean_t_g / mean_t_s if mean_t_s != 0 else 0
+
+    # Fixed path
+    array_name = os.path.join(subjects_dir, 'surf', '{h}.thickness.ratio.asc'.format(h=hemi))
+    np.savetxt(array_name, ratio, fmt='%10.6f', delimiter=' ')
+        
+    return

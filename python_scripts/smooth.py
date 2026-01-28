@@ -13,62 +13,60 @@ Returns:
    {h}.{c}.w2.asc
 """
 
-def smooth(subjects_dir,subject,x,y,z,hemi):
-    
+def smooth(subjects_dir, subject, x, y, z, hemi):
     import numpy as np
     import os
 
-    curv = ['SI', 'H', 'K', 'k1', 'k2', 'thickness']
+    curv = ['thickness']
 
     for l in range(len(curv)):
-        
         if curv[l] == 'thickness':
             curv_name = '{h}.{c}.asc'.format(c=curv[l], h=hemi) 
         else:
             curv_name = '{h}.pial.{c}.asc'.format(c=curv[l], h=hemi)
         
-        input_name = os.path.join(subjects_dir, subject, 'surf', curv_name)
+        # Fixed path: Remove 'subject' since subjects_dir is the full path
+        input_name = os.path.join(subjects_dir, 'surf', curv_name)
         input_data = np.zeros(len(x))
         
-        with open(input_name,'r') as input_file:
+        with open(input_name, 'r') as input_file:
             input_lines = input_file.readlines() 
             
         for i in range(len(input_lines)): 
             input_curv = input_lines[i].split()
-            input_data[i] = float(input_curv[4])
+            input_data[i] = float(input_curv[4]) # thickness values
         
         ################ Read the neighbor text file #####################
     
         input_ndl = '{h}.pial.neighbor.asc'.format(h=hemi)
-        ndl_file = os.path.join(subjects_dir, subject, 'surf', input_ndl)
+        # Fixed path
+        ndl_file = os.path.join(subjects_dir, 'surf', input_ndl)
         ndl = np.loadtxt(ndl_file)
         nb = np.zeros(len(x)) 
-           
+        
+        # row is padded by zeros after nb indices are done, so finds column of last neighbor
         for i in range(len(x)):
             for j in range(len(ndl[0])):
                 if ndl[i, j] == 0 and ndl[i, j+1] == 0:
                     nb[i] = j-1
                     break
             
-        iteration = 2 # Iteration can be between 0-3
-        strength  = 1 # Strength can be between 1-3
+        iteration = 2  # Iteration can be between 0-3
+        strength = 1   # Strength can be between 1-3
         
         for k in range(iteration):
-        
             for i in range(len(ndl)): 
-                
-                total_dist   = 0
+                # totals from each vertex, reset to 0 after each iteration
+                total_dist = 0
                 total_weight = 0
                 total_value = 0
         
                 nd = ndl[i]
                 le = int(nb[i]-2)
                 
-                if le <= 1: #corrupted vertices (one or two vertices can have zero area due to remeshing)
+                if le <= 1:  # Corrupted vertices (one or two vertices can have zero area due to remeshing)
                     input_data[i] = input_data[i]
-                    
                 elif le > 1:
-                
                     for j in range(1, le+1):
                         index = int(nd[j])
                         dist = np.sqrt((x[i] - x[index])**2 + (y[i] - y[index])**2 + (z[i] - z[index])**2)
@@ -81,31 +79,32 @@ def smooth(subjects_dir,subject,x,y,z,hemi):
                         total_weight = total_weight + weight
                         
                     for j in range(1, le+1):
-                        
                         index = int(nd[j])
                         dist = np.sqrt((x[i] - x[index])**2 + (y[i] - y[index])**2 + (z[i] - z[index])**2)
                         weight = 1.0 - (dist/total_dist)
                         total_value = total_value + (input_data[index] * weight)/total_weight
-                        
+                    
+                    # weighted average thickness based on strength
                     input_data[i] = (strength * total_value) + ((1-strength) * input_data[i])
          
         if curv[l] == 'thickness':
-            curv_name = '{h}.{c}.w2.asc'.format(c=curv[l], h=hemi) # w2 means 2 iterations of smoothing
+            curv_name = '{h}.{c}.w2.asc'.format(c=curv[l], h=hemi)  # w2 means 2 iterations of smoothing
         else:
-            curv_name = '{h}.pial.{c}.w2.asc'.format(c=curv[l], h=hemi) # w2 means 2 iterations of smoothing
+            curv_name = '{h}.pial.{c}.w2.asc'.format(c=curv[l], h=hemi)  # w2 means 2 iterations of smoothing
         
-        curv_name = os.path.join(subjects_dir, subject, 'surf', curv_name)
+        # Fixed path
+        curv_name = os.path.join(subjects_dir, 'surf', curv_name)
     
         indices = np.array(range(len(input_data)))
         columns = np.column_stack([x, y, z, input_data])
     
-        np.savetxt(curv_name, indices, fmt='%03d', delimiter=' '' ') 
+        np.savetxt(curv_name, indices, fmt='%03d', delimiter=' ') 
     
-        with open(curv_name,'r') as f:
+        with open(curv_name, 'r') as f:
             lines = f.read().splitlines()
-            with open(curv_name, 'w') as f: 
-                for i in range(len(columns)):
-                    f.write('\n'.join([lines[i] + ' ' + '%10.6f' % (columns[i,0])  + ' ' + '%10.6f' % (columns[i,1])
-                    + ' ' + '%10.6f' % (columns[i,2]) + ' ' + '%10.6f' % (columns[i,3])])+ '\n')  
+        with open(curv_name, 'w') as f: 
+            for i in range(len(columns)):
+                f.write('\n'.join([lines[i] + ' ' + '%10.6f' % (columns[i,0]) + ' ' + '%10.6f' % (columns[i,1])
+                                 + ' ' + '%10.6f' % (columns[i,2]) + ' ' + '%10.6f' % (columns[i,3])]) + '\n')  
     
-    return 
+    return

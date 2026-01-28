@@ -33,28 +33,26 @@ Input mesh file format (the format is the same with Freesurfer ?h.pial/white fil
     
 """
 
-def coords_nodes(subjects_dir,subject,hemi):
-    
+def coords_nodes(subjects_dir, subject, hemi):
     import numpy as np
     import os
         
     input_mesh = '{h}.pial.asc'.format(h=hemi)
+    m_filename = os.path.join(subjects_dir, 'surf', input_mesh)  # Fixed path
     
-    m_filename = os.path.join(subjects_dir, subject, 'surf', input_mesh)
+    with open(m_filename, 'r') as coord_file:
+        coord_lines = coord_file.readlines() # creates string vector of all of  the lines in the asc file
+        v_f = coord_lines[1].split() # splits off second row
+        v = int(v_f[0]) # num vertices
+        f = int(v_f[1]) # num triangles/faces
     
-    with open(m_filename,'r') as coord_file:
-        coord_lines = coord_file.readlines()
-        v_f = coord_lines[1].split()
-        v = int(v_f[0])
-        f = int(v_f[1])
-    
-    # Coordinates x,y,z
+    # Coordinates x,y,z (why can't you just use num vertices?)
     x = np.zeros(len(coord_lines) - f-2)
     y = np.zeros(len(coord_lines) - f-2)
     z = np.zeros(len(coord_lines) - f-2)
     
     
-    for i in range(2, len(coord_lines) - f): 
+    for i in range(2, len(coord_lines) - f): # loops through all vertex indices
     
         coord_data = coord_lines[i].split()
         
@@ -67,7 +65,7 @@ def coords_nodes(subjects_dir,subject,hemi):
     b = np.zeros(len(coord_lines) - len(x) -2)
     c = np.zeros(len(coord_lines) - len(x) -2)
         
-    for i in range(v+2, len(coord_lines)):
+    for i in range(v+2, len(coord_lines)): # loops through triangle indices
         
         tri_data = coord_lines[i].split()
         
