@@ -6,11 +6,11 @@ Computes:
 - Cortical thickness
 - Sulcal depth (standard + shrunken alpha surface)
 - Mean & Gaussian curvature
-- Principal curvatures (k1, k2), shape index (SI), curvedness (CVD)
+- Principal curvatures (k1, k2), shape index (SI), **curvedness (CVD) 
 - Intrinsic curvature index (ICI) & folding index (FI)
 - Gyral/sulcal thickness ratio at multiple coverage levels
 
-Originally built for datasets like ABIDE; now generalized, significantly faster, and easier to use.
+Originally built for datasets like ABIDE; now generalized, significantly faster, easier public use. 
 
 Citation
 If you use this pipeline in published work, please cite:
@@ -28,9 +28,9 @@ Added curvedness (CVD)
 New output {h}.pial.cvd.asc = √((k₁² + k₂²)/2) in the improved k1_k2_SI_CVD.py (replaces old k1_k2_SI.py).
 
 Generalized & cleaned up
-- No hard-coded paths — edit one line in curveball.py
-- Better file checks, empty-array handling, safer math
-- Clearer docstrings and comments
+- No hard-coded paths — edit only in curveball.py
+- File checks, empty-array handling
+- docstrings and comments
 
 See CHANGELOG.md for full details.
 
