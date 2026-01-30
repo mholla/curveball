@@ -1,6 +1,6 @@
 Curveball
 
-Pipeline for quantitative analysis of cortical surface meshes from Freesurfer (?h.pial / ?h.white).
+Pipeline for quantitative analysis of cortical surface meshes from Freesurfer ({h}.pial / {h}.white).
 
 Computes:
 - Cortical thickness
@@ -19,7 +19,7 @@ Demirci, N., & Holland, S. K. (2023). Cortical thickness systematically varies w
 Improvements in v2.0 (2025 refresh)
 
 ~90% faster neighbor discovery
-The previous bottleneck (neighbor_info.py) was completely rewritten:
+The previous bottleneck (neighbor_info.py) was rewritten:
 - Old: O(V × T) complexity (nested loops scanning all triangles for every vertex)
 - New: O(T + V × N) using upfront vertex-to-triangle mapping
 - Result: neighbor finding now takes seconds instead of minutes on typical meshes (~40k–150k vertices)
